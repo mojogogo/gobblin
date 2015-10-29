@@ -8,8 +8,39 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 // CONDITIONS OF ANY KIND, either express or implied.
 
+buildscript {
+  repositories {
+    mavenLocal()
+  }
+  dependencies {
+    classpath "com.srcclr:gradle:latest.integration"
+  }
+}
+
+apply plugin: 'maven'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: "srcclr"
+
+repositories {
+  mavenLocal()
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+srcclr {
+  apiUrl = integrationTestApiUrl
+  userToken = integratinTestUserToken
+}
+
+task srcclrTest << {
+  println("Integration Test: Verifing results")
+
+  int collectedSize = srcclrData.evidence.size()
+  assert(190 == collectedSize)
+}
 
 ext.build_script_dir = "${projectDir.path}/build_script"
 

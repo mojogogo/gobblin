@@ -39,7 +39,7 @@ task srcclrTest << {
   println("Integration Test: Verifing results")
 
   int collectedSize = srcclrData.evidence.size()
-  assert(190 == collectedSize)
+  assert(187 == collectedSize)
 }
 
 ext.build_script_dir = "${projectDir.path}/build_script"
